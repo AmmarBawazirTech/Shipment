@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DomainLayer.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shipment.Models;

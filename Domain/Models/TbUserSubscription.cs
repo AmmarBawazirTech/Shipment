@@ -1,11 +1,11 @@
-﻿using System;
+﻿using DomainLayer.Models;
+using System;
 using System.Collections.Generic;
 
-namespace Shipment.Models;
+namespace DomainLayer.Models;
 
-public partial class TbUserSubscription
+public partial class TbUserSubscription: BaseTable
 {
-    public Guid Id { get; set; }
 
     public Guid UserId { get; set; }
 
@@ -13,13 +13,5 @@ public partial class TbUserSubscription
 
     public DateTime SubscriptionDate { get; set; }
 
-    public Guid? UpdatedBy { get; set; }
 
-    public int CurrentState { get; set; }
-
-    public DateTime CreatedDate { get; set; }
-
-    public Guid CreatedBy { get; set; }
-
-    public DateTime? UpdatedDate { get; set; }
 }
