@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Shipment.Models;
+namespace DomainLayer.Models;
 
-public partial class TbUserSebder
+public partial class TbUserSebder:BaseTable
 {
-    public Guid Id { get; set; }
+  
 
     public Guid UserId { get; set; }
 
@@ -19,13 +19,4 @@ public partial class TbUserSebder
 
     public string Address { get; set; } = null!;
 
-    public Guid? UpdatedBy { get; set; }
-
-    public int CurrentState { get; set; }
-
-    public DateTime CreatedDate { get; set; }
-
-    public Guid CreatedBy { get; set; }
-
-    public DateTime? UpdatedDate { get; set; }
 }

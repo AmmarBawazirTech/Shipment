@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DomainLayer.Models;
+using System;
 using System.Collections.Generic;
 
-namespace Shipment.Models;
+namespace DomainLayer.Models;
 
 public partial class Log
 {
