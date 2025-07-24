@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shipment.Models;
 
-namespace Shipment.Data;
+namespace DataAcessesLayer.Data;
 
-public partial class AppDbContext : DbContext
+public partial class ShippingDbContext : IdentityDbContext<ApplicationUser>
 {
-    public AppDbContext()
+    public ShippingDbContext()
     {
     }
 
-    public AppDbContext(DbContextOptions<AppDbContext> options)
+    public ShippingDbContext(DbContextOptions<ShippingDbContext> options)
         : base(options)
     {
     }
@@ -55,10 +56,6 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<TbUserSebder> TbUserSebders { get; set; }
 
     public virtual DbSet<TbUserSubscription> TbUserSubscriptions { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Shipping;Integrated Security=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
