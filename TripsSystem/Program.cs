@@ -1,11 +1,12 @@
+using DataAcessesLayer.Data;
 using Microsoft.EntityFrameworkCore;
-using Shipment.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<ShippingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("localConnection")));
 
 var app = builder.Build();
