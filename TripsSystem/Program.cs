@@ -1,5 +1,9 @@
+using DataAcessesLayer.Contract;
 using DataAcessesLayer.Data;
+using DataAcessesLayer.Repositories;
+using DomainLayer.Models;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +15,16 @@ builder.Services.AddDbContext<ShippingDbContext>(options =>
 
 var app = builder.Build();
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.MSSqlServer(
+        connectionString: builder.Configuration.GetConnectionString("localConnection"),
+        tableName: "Logs",
+        autoCreateSqlTable: true,
+        restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
+    .CreateLogger();
+builder.Host.UseSerilog();
+builder.Services.AddScoped<IGenericRepository<TbShippingType>, GenericRepository<TbShippingType>>();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
