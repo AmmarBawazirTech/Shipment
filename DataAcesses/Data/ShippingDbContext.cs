@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DomainLayer.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shipment.Models;
@@ -18,19 +19,7 @@ public partial class ShippingDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
-    public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
-    public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
-
-    public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-
-    public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-
-    public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-
-    public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
-
-    public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
 
     public virtual DbSet<Log> Logs { get; set; }
 
@@ -60,6 +49,43 @@ public partial class ShippingDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<ApplicationUser>(b =>
+        {
+            b.ToTable("AspNetUsers");
+        });
+
+        modelBuilder.Entity<IdentityRole>(b =>
+        {
+            b.ToTable("AspNetRoles");
+        });
+
+        modelBuilder.Entity<IdentityUserRole<string>>(b =>
+        {
+            b.ToTable("AspNetUserRoles");
+        });
+
+        modelBuilder.Entity<IdentityUserLogin<string>>(b =>
+        {
+            b.ToTable("AspNetUserLogins");
+        });
+
+        modelBuilder.Entity<IdentityUserToken<string>>(b =>
+        {
+            b.ToTable("AspNetUserTokens");
+        });
+
+        modelBuilder.Entity<IdentityRoleClaim<string>>(b =>
+        {
+            b.ToTable("AspNetRoleClaims");
+        });
+
+        modelBuilder.Entity<IdentityUserClaim<string>>(b =>
+        {
+            b.ToTable("AspNetUserClaims");
+        });
+
         modelBuilder.Entity<AspNetRole>(entity =>
         {
             entity.Property(e => e.Name).HasMaxLength(256);

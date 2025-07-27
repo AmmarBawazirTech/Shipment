@@ -1,3 +1,5 @@
+using BL.Interfaces;
+using BL.Services;
 using DataAcessesLayer.Contract;
 using DataAcessesLayer.Data;
 using DataAcessesLayer.Repositories;
@@ -12,10 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ShippingDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("localConnection")));
-
-var app = builder.Build();
-
-Log.Logger = new LoggerConfiguration()
+Serilog.Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.MSSqlServer(
         connectionString: builder.Configuration.GetConnectionString("localConnection"),
@@ -24,7 +23,29 @@ Log.Logger = new LoggerConfiguration()
         restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
     .CreateLogger();
 builder.Host.UseSerilog();
-builder.Services.AddScoped<IGenericRepository<TbShippingType>, GenericRepository<TbShippingType>>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddScoped<IShipmentTypeService, ShipmentTypeService>();
+builder.Services.AddScoped<IShipmentService, ShipmentService>();
+builder.Services.AddScoped<IUserReciverService, UserReciverService>();
+builder.Services.AddScoped<ISubscriptionPackageService, SubscriptionPackageService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<ICarrierService, CarrierService>();
+
+
+
+
+
+
+
+
+
+
+builder.Services.AddAutoMapper(typeof(Program));
+
+var app = builder.Build();
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

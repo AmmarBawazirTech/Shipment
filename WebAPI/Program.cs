@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-Log.Logger = new LoggerConfiguration()
+Serilog.Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.MSSqlServer(
         connectionString: builder.Configuration.GetConnectionString("localConnection"),
@@ -19,6 +19,8 @@ Log.Logger = new LoggerConfiguration()
         autoCreateSqlTable: true,
         restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
     .CreateLogger();
+builder.Host.UseSerilog();
+builder.Services.AddAutoMapper(typeof(Program));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
