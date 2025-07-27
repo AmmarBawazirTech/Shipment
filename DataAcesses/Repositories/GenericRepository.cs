@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace DataAcessesLayer.Repositories
 {
-    public class TableRepository<T> : ITableRepository<T> where T:BaseTable
+    public class GenericRepository<T> : IGenericRepository<T> where T:BaseTable
     {
         private readonly ShippingDbContext context;
         private readonly DbSet<T> dbSet;
 
-        public TableRepository(ShippingDbContext context)
+        public GenericRepository(ShippingDbContext context)
         {
             this.context = context;
             dbSet = context.Set<T>();
@@ -105,8 +105,7 @@ namespace DataAcessesLayer.Repositories
             }
             catch (Exception ex)
             {
-                // Log the exception if necessary
-                return false;
+                return false; 
             }
 
         }

@@ -8,6 +8,7 @@ namespace DomainLayer.Models
 {
     public class BaseTable
     {
+       
         public Guid Id { get; set; }
         public Guid? UpdatedBy { get; set; }
 

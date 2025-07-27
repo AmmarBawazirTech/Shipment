@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAcessesLayer.Exeption
+namespace BL.Dto
 {
-    class DataAccessExeption
+    public class CarrierDto
     {
+        public string CarrierName { get; set; } = null!;
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAcessesLayer.Contract
 {
-    public interface ITableRepository<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         List<T> GetAll();
         T GetById(Guid id);
